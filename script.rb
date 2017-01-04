@@ -1,47 +1,21 @@
-require 'json'
-require 'active_support/all'
+require_relative 'logic'
 
-class Interval
-  attr_reader :ms
-  def initialize(time)
-    @ms = time.seconds * 1000
-  end
-end
-
-class Point
-  attr_reader :time, :lat, :lng
-  def initialize(data)
-    @time = data["timestampMs"].to_i
-    @lat = data["latitudeE7"].to_s.split('').insert(-8, ".").join
-    @lng = data["longitudeE7"].to_s.split('').insert(-8, ".").join
-  end
-end
-
-class World
-  attr_reader :interval
-  attr_accessor :points
-  def initialize(data, interval)
-    @interval = interval
-    @points = []
-    set_points(data)
-  end
-
-  def formatted_points
-    points.map { |x| "{lat: #{x.lat}, lng: #{x.lng}}," }
-  end
-
-  private
-
-  def set_points(data)
-    data["locations"].reverse.each do |datum|
-      point = Point.new(datum)
-      points << point if point.time > points.last.try(:time).to_i + interval.ms
-    end
-  end
-end
-
+puts 'reading location data...'
 file = File.read('LocationHistory.json')
 data = JSON.parse(file)
 
-my_world = World.new(data, Interval.new(1.day))
-puts my_world.formatted_points
+puts "At what interval do you want to grab the data (in hours)?"
+int = gets.chomp.to_i
+
+puts 'parsing location data...'
+my_world = World.new(data, Interval.new(int.hour))
+
+puts "What is your Google Maps API key?"
+key = gets.chomp
+
+content = File.read('map.html')
+new_content = content.gsub(/key=.*\&/, "key=#{key}&")
+File.open('map.html', "w") {|file| file.puts new_content }
+
+`sed -i '' 's/var points .*//g' js.js`
+`echo var points = #{my_world.formatted_points} >> js.js`
