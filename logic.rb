@@ -39,4 +39,3 @@ class World
     end
   end
 end
-

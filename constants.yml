@@ -1,0 +1,14 @@
+---
+api_key: PASSWORD
+interval: 24
+icon:
+  color: "#b20000"
+  speed: 200
+line:
+  color: "#2F4F4F"
+map:
+  center:
+    lat: 39.8282
+    lng: -98.5795
+  zoom: 5
+  type: terrain
