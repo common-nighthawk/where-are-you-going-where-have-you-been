@@ -33,14 +33,13 @@ new_content = content.gsub(/key=.*\&/, "key=#{constants["api_key"]}&")
 File.open('site/map.html', "w") {|file| file.puts new_content }
 
 puts "Building the JavaScript..."
-`sed -i '' "s/zoom: .*\,/zoom: #{constants["map"]["zoom"]}\,/g" 'site/js.js'`
-`sed -i '' "s/mapTypeID: '.*'/mapTypeID: '#{constants["map"]["type"]}'/g" 'site/js.js'`
-`sed -i '' "s/center: \{.*\}\,/center: \{lat: #{constants["map"]["center"]["lat"]}, lng: #{constants["map"]["center"]["lng"]}\}\,/g" 'site/js.js'`
-`sed -i '' "s/strokeColor: '.*' };/strokeColor: \'#{constants["icon"]["color"]}\' };/g" 'site/js.js'`
-`sed -i '' "s/strokeColor: '.*' });/strokeColor: \'#{constants["line"]["color"]}\' });/g" 'site/js.js'`
-`sed -i '' "s/}\, .*);/}\, #{constants["icon"]["speed"]});/g" 'site/js.js'`
-
-`sed -i '' 's/var points .*//g' 'site/js.js'`
+`sed -i '' "s|.*//mapLocation|center: {lat: #{constants["map"]["center"]["lat"]}, lng: #{constants["map"]["center"]["lng"]}}, //mapLocation|g" 'site/js.js'`
+`sed -i '' "s|.*//mapZoom|zoom: #{constants["map"]["zoom"]}, //mapZoom|g" 'site/js.js'`
+`sed -i '' "s|.*//mapType|mapTypeId: '#{constants["map"]["type"]}' //mapType|g" 'site/js.js'`
+`sed -i '' "s|.*//lineColor|strokeColor: '#{constants["line"]["color"]}', //lineColor|g" 'site/js.js'`
+`sed -i '' "s|.*//iconColor|strokeColor: '#{constants["icon"]["color"]}' //iconColor|g" 'site/js.js'`
+`sed -i '' "s|.*//iconSpeed|}\, #{constants["icon"]["speed"]}); //iconSpeed|g" 'site/js.js'`
+`sed -i '' "/var points .*/d" 'site/js.js'`
 `echo var points = #{my_world.formatted_points} >> 'site/js.js'`
 
 puts "\nAll set!!"
