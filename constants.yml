@@ -1,11 +1,11 @@
 ---
 api_key: PASSWORD
-interval: 24
+interval: 0.8
 icon:
-  color: "#b20000"
+  color: '#b20000'
   speed: 200
 line:
-  color: "#2F4F4F"
+  color: '#2F4F4F'
 map:
   center:
     lat: 39.8282

@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
-require_relative 'logic'
-require_relative 'q_and_a'
+require_relative 'models/logic'
+require_relative 'models/q_and_a'
 
 print "\e[2J\e[f"
 
