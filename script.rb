@@ -1,16 +1,19 @@
 #!/usr/bin/env ruby
 
+require 'active_support/all'
 require 'yaml'
-require_relative 'models/logic'
-require_relative 'models/q_and_a'
+require_relative 'models/editor'
+require_relative 'models/interval'
+require_relative 'models/point'
+require_relative 'models/preferences'
+require_relative 'models/ui'
+require_relative 'models/world'
 
-print "\e[2J\e[f"
+interactive = ["--skip", "-skip", "-s", "--s"].exclude?(ARGV[0])
+my_preferences = Preferences.new
 
-q_and_a = QAndA.new
-unless ["--skip", "-skip", "-s", "--s"].include?(ARGV[0])
-  q_and_a.ask
-  q_and_a.load
-end
+UI.clear
+my_preferences.set_all(UI.get_preferences) if interactive
 
 constants = YAML.load_file('constants.yml')
 
@@ -22,25 +25,14 @@ puts "Parsing location data..."
 my_interval = Interval.new(constants["interval"].hours)
 my_world = World.new(data, my_interval)
 
-unless ["--skip", "-skip", "-s", "--s"].include?(ARGV[0])
-  q_and_a.set_center(my_world)
-end
+my_preferences.set_lat_lng(my_world) if interactive
 constants = YAML.load_file('constants.yml')
 
 puts "Building the HTML..."
-content = File.read('site/map.html')
-new_content = content.gsub(/key=.*\&/, "key=#{constants["api_key"]}&")
-File.open('site/map.html', "w") {|file| file.puts new_content }
+Editor.set_html(constants)
 
 puts "Building the JavaScript..."
-`sed -i '' "s|.*//mapLocation|center: {lat: #{constants["map"]["center"]["lat"]}, lng: #{constants["map"]["center"]["lng"]}}, //mapLocation|g" 'site/js.js'`
-`sed -i '' "s|.*//mapZoom|zoom: #{constants["map"]["zoom"]}, //mapZoom|g" 'site/js.js'`
-`sed -i '' "s|.*//mapType|mapTypeId: '#{constants["map"]["type"]}' //mapType|g" 'site/js.js'`
-`sed -i '' "s|.*//lineColor|strokeColor: '#{constants["line"]["color"]}', //lineColor|g" 'site/js.js'`
-`sed -i '' "s|.*//iconColor|strokeColor: '#{constants["icon"]["color"]}' //iconColor|g" 'site/js.js'`
-`sed -i '' "s|.*//iconSpeed|}\, #{constants["icon"]["speed"]}); //iconSpeed|g" 'site/js.js'`
-`sed -i '' "/var points .*/d" 'site/js.js'`
-`echo var points = #{my_world.formatted_points} >> 'site/js.js'`
+Editor.set_javascript(my_world, constants)
 
 puts "\nAll set!!"
 `open site/map.html`

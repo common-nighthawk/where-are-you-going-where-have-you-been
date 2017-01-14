@@ -1,6 +1,6 @@
 ---
 api_key: PASSWORD
-interval: 0.8
+interval: 24
 icon:
   color: '#b20000'
   speed: 200

@@ -1,21 +1,4 @@
-require 'json'
-require 'active_support/all'
-
-class Interval
-  attr_reader :ms
-  def initialize(time)
-    @ms = time.seconds * 1000
-  end
-end
-
-class Point
-  attr_reader :time, :lat, :lng
-  def initialize(data)
-    @time = data["timestampMs"].to_i
-    @lat = data["latitudeE7"].to_s.split('').insert(-8, ".").join
-    @lng = data["longitudeE7"].to_s.split('').insert(-8, ".").join
-  end
-end
+require_relative 'point'
 
 class World
   attr_reader :interval
