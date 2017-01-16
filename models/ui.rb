@@ -32,8 +32,8 @@ class UI
     preferences[:map_zoom] = gets.chomp.to_i
 
     puts "\Do you want the center of the map to be:"
-    puts "the center of the U.S., the center of the world, or the center of the places you've been"
-    puts "(us/world/me)?"
+    puts "the center of: the U.S., Europe, the world, or the center of the places you've been"
+    puts "(us/eu/world/me)?"
     puts "[hit enter and defaults to us]"
     preferences[:map_center] = gets.chomp.downcase
 

@@ -22,7 +22,7 @@ class Preferences
     self.line_color = hash[:line_color] unless hash[:line_color].blank?
     self.map_zoom = hash[:map_zoom] if hash[:map_zoom] > 0
     self.map_type = convert_map_type(hash[:map_type]) if ['roadmap', 'satellite', 'hybrid', 'terrain'].include?(convert_map_type(hash[:map_type]))
-    self.map_center = hash[:map_center] if ['us', 'world', 'me'].include?(hash[:map_center])
+    self.map_center = hash[:map_center] if ['us', 'eu', 'world', 'me'].include?(hash[:map_center])
     write_to_yml
   end
 
@@ -31,6 +31,9 @@ class Preferences
     when 'us'
       self.lat = 39.8282
       self.lng = -98.5795
+    when 'eu'
+      self.lat = 54.5260
+      self.lng = 15.2551
     when 'world'
       self.lat = 51.4826
       self.lng = 0
