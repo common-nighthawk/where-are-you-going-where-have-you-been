@@ -31,11 +31,16 @@ class UI
     puts "[hit enter and defaults to 5]"
     preferences[:map_zoom] = gets.chomp.to_i
 
-    puts "\nLast question. Do you want the center of the map to be:"
+    puts "\Do you want the center of the map to be:"
     puts "the center of the U.S., the center of the world, or the center of the places you've been"
     puts "(us/world/me)?"
     puts "[hit enter and defaults to us]"
     preferences[:map_center] = gets.chomp.downcase
+
+    puts "\nLast question. What kind of map do you want to use?:"
+    puts "([r]oadmap/[s]atellite/[h]ybrid/[t]errain)?"
+    puts "[hit enter and defaults to terrain]"
+    preferences[:map_type] = gets.chomp.downcase
 
     puts "\nGreat! Now that everything's set, we'll start building...\n"
     preferences

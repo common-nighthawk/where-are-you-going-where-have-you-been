@@ -1,5 +1,5 @@
 class Preferences
-  attr_accessor :api_key, :interval, :icon_color, :icon_speed, :line_color, :map_zoom, :map_center, :lat, :lng
+  attr_accessor :api_key, :interval, :icon_color, :icon_speed, :line_color, :map_zoom, :map_type, :map_center, :lat, :lng
 
   def initialize
     @api_key = ""
@@ -8,6 +8,7 @@ class Preferences
     @icon_speed = 200
     @line_color = "#2F4F4F"
     @map_zoom = 5
+    @map_type = "terrain"
     @map_center = "us"
     @lat = 0
     @lng = 0
@@ -20,6 +21,7 @@ class Preferences
     self.icon_speed = hash[:icon_speed] if hash[:icon_speed] > 0
     self.line_color = hash[:line_color] unless hash[:line_color].blank?
     self.map_zoom = hash[:map_zoom] if hash[:map_zoom] > 0
+    self.map_type = convert_map_type(hash[:map_type]) if ['roadmap', 'satellite', 'hybrid', 'terrain'].include?(convert_map_type(hash[:map_type]))
     self.map_center = hash[:map_center] if ['us', 'world', 'me'].include?(hash[:map_center])
     write_to_yml
   end
@@ -51,8 +53,22 @@ class Preferences
     constants["icon"]["speed"] = self.icon_speed
     constants["line"]["color"] = self.line_color
     constants["map"]["zoom"] = self.map_zoom
+    constants["map"]["type"] = self.map_type
     constants["map"]["center"]["lat"] = self.lat
     constants["map"]["center"]["lng"] = self.lng
     File.open("constants.yml", 'w') { |f| YAML.dump(constants, f) }
+  end
+
+  def convert_map_type(input)
+    case input[0]
+    when 'r'
+      'roadmap'
+    when 's'
+      'satellite'
+    when 'h'
+      'hybrid'
+    when 't'
+      'terrain'
+    end
   end
 end
