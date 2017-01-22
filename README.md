@@ -113,6 +113,17 @@ hsla(120, 100%, 25%, 0.3)
 ```
 
 ### Center
+There are 4 options to set as the center of the map:
+the U.S., Europe, the world, and 'where I've been'.
+The center of the world is difficult to define,
+but here the Royal Observatory in Greenwich, London is used.
+The center of the places you've been is
+the middle of your northern most point and your southern most point
+at the intersection of
+the middle of your eastern most point and your western most point.
+
+To use another value, edit the `constants.yml` file.
+Details in the 'Building The Map' section below.
 
 ### Zoom
 For complete details, see the explanation in
@@ -130,9 +141,27 @@ Details about each are available in
 [Google's Documentation](https://developers.google.com/maps/documentation/static-maps/intro#MapTypes).
 
 # Building The Map
-`./script.rb --skip`
+When you run `./script` the console asks a series of questions.
+The answers are populated in the `constants.yml` file.
+
+If you prefer, you can directly edit the `constants.yml` file.
+Additionally, this is necessary to set values outside of given options.
+(E.g. to set the center of the map to Lincoln Memorial,
+you'll need to find the longitude and lattitude and set them here.)
+
+The parse the location and data and build the map directly from
+`constants.yml` run `./script.rb --skip` to bypass all the questions.
 
 # A Note on Privacy
+It is important to note that your map reveals your location history.
+By zooming in on my map, it is possible to tell where I live,
+determine places I've interviewed, and see where I've been on dates.
+
+If you've been telling your friends you've been going to the Vim meetup
+when you've really been going to Emacs meetup--you've been warned.
+
+Setting a high interval will reduct the number of data points.
+Additionally, there is a TODO item to set the precision of the points.
 
 # Examples
 If you created and hosted a map, submit a pull request
