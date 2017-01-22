@@ -147,10 +147,16 @@ The answers are populated in the `constants.yml` file.
 If you prefer, you can directly edit the `constants.yml` file.
 Additionally, this is necessary to set values outside of given options.
 (E.g. to set the center of the map to Lincoln Memorial,
-you'll need to find the longitude and lattitude and set them here.)
+you'll need to find the longitude and latitude and set them here.)
 
 The parse the location and data and build the map directly from
-`constants.yml` run `./script.rb --skip` to bypass all the questions.
+`constants.yml` just run `./script.rb --skip` to bypass all the questions.
+
+Lastly, the JavaScript file is built with some inelegant regex matching.
+If the js.js is edited by hand, it's possible the script will no longer
+create the file correctly.
+To get a clean version of the JS file, copy over the template with
+`cp ~/where-are-you-going-where-have-you-been/site/js.template ~/where-are-you-going-where-have-you-been/site/js.js`.
 
 # A Note on Privacy
 It is important to note that your map reveals your location history.
@@ -167,7 +173,7 @@ Additionally, there is a TODO item to set the precision of the points.
 If you created and hosted a map, submit a pull request
 (or open an issue with the link) to add it here!
 
-[common-nighthawk](http://danielallendeutsch.com/projects/map.html)
+* [common-nighthawk](http://danielallendeutsch.com/projects/map.html)
 
 # Contributing
 Because this project is small, we can dispense with formality.
@@ -187,3 +193,4 @@ give a shout to [@cmmn_nighthawk](https://twitter.com/cmmn_nighthawk).
 * different color lines for different methods of transport
 * add different levels of precision (e.g. details at only city-level)
 * fix error with too many data points (Errno::E2BIG). do not add coordinated to js file with `echo >> site/js.js`
+* add a command line option to not open the html file at the end of the script
