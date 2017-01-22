@@ -1,4 +1,4 @@
-# What This Is
+# Overview
 If you have an Android phone, Google is constantly tracking your location.
 They literally store your exact coordinates every few milliseconds.
 Creepy? Sure.
@@ -16,12 +16,11 @@ I couldn't find a good existing solution, so I built this.
 The map looks kind of like of like this--
 ![map](http://i.imgur.com/VL3hM6g.gif "map")
 
-But the GIF doesn't do it justice.
+The GIF doesn't do it justice.
 For a proper demo,
 [this example is hosted on the web](http://danielallendeutsch.com/projects/map.html).
 
-I built this quickly so that it worked for my data.
-But then I went back and extended it so it'll work for everyone.
+This was built in a way that should work with anyone's data.
 This tool returns three files:
 one HTML, one CSS, and one JavaScript that make up your map.
 
@@ -45,17 +44,18 @@ You should be able to manage everything from the
 [API Console](https://console.developers.google.com/apis/credentials).
 
 ### Setup
-Copy your location data in the top-level of this repository.
+Copy your location data to the top-level of this repository.
 You'll see a LocationHistory.json file already there.
 Replace your that location history with *your* location history.
 
-Uncompress the file Google provided and move over your data.
+To do that you'll need to
+uncompress the file Google provided and move over your data.
 That will look something like this--
 ```
 unzip ~/Downloads/takeout-20170101T000000Z.zip
 cp ~/Downloads/Takeout/Location\ History/LocationHistory.json ~/where-are-you-going-where-have-you-been/
 ```
-(This assume: the file Google provided is zipped,
+(This assume: the provided file is zipped,
 that that file is stored in `Home/Downloads/`,
 and that this repository is stored in `Home/`.
 Update as necessary.)
@@ -70,7 +70,7 @@ At the end, the map should automatically open in your preferred browser &#128516
 
 ### Assets
 The page that opens is made up of three files, which can be found in
-`where-are-you-going-where-have-you-been/site`.
+`where-are-you-going-where-have-you-been/site/`.
 If you want to host your map on the web, you'll just need those files.
 
 # The Details
@@ -85,8 +85,11 @@ The interval is the amount of time, in hours, between data points.
 For example, 24 will set one data point per day
 and 1 will set a data point per hour.
 Therefore, higher numbers will result in straighter lines and less points.
-Really low intervals may throw an error--
-things start breaking with more than 100,000 location points.
+Lower numbers will be more curved with more points.
+
+Really low intervals may throw an error--with too many data points
+an `Errno::E2BIG` error is raised.
+There is a TODO item to fix this.
 
 ### Speed
 Speed is actually a misnomer.
@@ -99,7 +102,7 @@ Because it is time, all non-negative numbers are acceptable.
 
 ### Colors
 The icon and line accept any color values that are legal with CSS.
-The following are all valid--
+All the following are valid--
 ```
 blue
 #ff0000
@@ -117,13 +120,13 @@ For complete details, see the explanation in
 In short, 1 is super zoomed-out and shows the world.
 20 is super zoomed-in and is at the building level.
 
-As a rule of thumb:
+Rule of thumb--
 1: world, 5: continent, 10: city, 15: street, 20: building
 
 ### Map Type
 It is possible to display the map in several formats:
 roadmap, satellite, terrain, hybrid.
-Fill details again available in
+Details about each are available in
 [Google's Documentation](https://developers.google.com/maps/documentation/static-maps/intro#MapTypes).
 
 # Building The Map
@@ -132,6 +135,9 @@ Fill details again available in
 # A Note on Privacy
 
 # Examples
+If you created and hosted a map, submit a pull request
+(or open an issue with the link) to add it here!
+
 [common-nighthawk](http://danielallendeutsch.com/projects/map.html)
 
 # Contributing
@@ -151,3 +157,4 @@ give a shout to [@cmmn_nighthawk](https://twitter.com/cmmn_nighthawk).
 # TODO
 * different color lines for different methods of transport
 * add different levels of precision (e.g. details at only city-level)
+* fix error with too many data points (Errno::E2BIG). do not add coordinated to js file with `echo >> site/js.js`
