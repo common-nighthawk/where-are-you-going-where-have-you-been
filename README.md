@@ -46,7 +46,7 @@ You should be able to manage everything from the
 ### Setup
 Copy your location data to the top-level of this repository.
 You'll see a LocationHistory.json file already there.
-Replace your that location history with *your* location history.
+Replace that location history with *your* location history.
 
 To do that you'll need to
 uncompress the file Google provided and move over your data.
@@ -166,7 +166,7 @@ determine companies I've interviewed with, and see where I've been on dates.
 If you've been telling your friends you've been going to the Vim meetup
 when you've really been going to Emacs meetup--you've been warned.
 
-Setting a high interval will reduct the number of data points.
+Setting a high interval will reduce the number of data points.
 Additionally, there is a TODO item to control the precision of the location points.
 
 # Examples
