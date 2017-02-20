@@ -194,3 +194,4 @@ give a shout to [@cmmn_nighthawk](https://twitter.com/cmmn_nighthawk).
 * add different levels of precision (e.g. details at only city-level)
 * fix error with too many data points (Errno::E2BIG). do not add coordinates to js file with `echo >> site/js.js`
 * add a command line option to not open the html file at the end of the script
+* allow specification of start and end dates
