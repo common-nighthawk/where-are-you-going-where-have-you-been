@@ -38,8 +38,8 @@ class Preferences
       self.lat = 51.4826
       self.lng = 0
     when 'me'
-      lats = world.points.map { |p| p.lat.to_f }
-      lngs = world.points.map { |p| p.lng.to_f }
+      lats = world.sample_points.map { |p| p.lat.to_f }
+      lngs = world.sample_points.map { |p| p.lng.to_f }
       self.lat = (lats.min + lats.max)/2
       self.lng = (lngs.min + lngs.max)/2
     end
