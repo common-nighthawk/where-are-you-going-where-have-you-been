@@ -35,4 +35,4 @@ puts "Building the JavaScript..."
 Editor.set_javascript(my_world, constants)
 
 puts "\nAll set!!"
-`open site/map.html`
+`xdg-open site/map.html`

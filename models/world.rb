@@ -21,9 +21,11 @@ class World
       last_point = nil
       data["locations"].reverse.each do |datum|
         point = Point.new(datum)
-        f << point.formatted if point.time > last_point.try(:time).to_i + interval.ms
+        if point.time > last_point.try(:time).to_i + interval.ms
+          f << point.formatted
+          last_point = point
+        end
         sample_points << point if point.time > sample_points.last.try(:time).to_i + 86_400_000
-        last_point = point
       end
 
       Editor.set_points(f, 'close')
