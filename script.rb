@@ -35,4 +35,4 @@ puts "Building the JavaScript..."
 Editor.set_javascript(my_world, constants)
 
 puts "\nAll set!!"
-`xdg-open site/map.html`
+`#{RUBY_PLATFORM.match(/darwin/) ? 'open' : 'xdg-open'} site/map.html`

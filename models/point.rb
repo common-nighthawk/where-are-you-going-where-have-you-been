@@ -4,6 +4,8 @@ class Point
     @time = data["timestampMs"].to_i
     @lat = data["latitudeE7"].to_s.split('').insert(-8, ".").join
     @lng = data["longitudeE7"].to_s.split('').insert(-8, ".").join
+  rescue IndexError
+    nil
   end
 
   def formatted

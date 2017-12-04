@@ -20,7 +20,7 @@ class World
 
       last_point = nil
       data["locations"].reverse.each do |datum|
-        point = Point.new(datum)
+        next unless point = Point.new(datum)
         if point.time > last_point.try(:time).to_i + interval.ms
           f << point.formatted
           last_point = point
