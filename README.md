@@ -170,6 +170,7 @@ If you created and hosted a map, submit a pull request
 (or open an issue with the link) to add it here!
 
 * [common-nighthawk](http://danielallendeutsch.com/projects/map.html)
+* [Nicolas](https://s3-us-west-2.amazonaws.com/optus-22/map.html)
 
 # Contributing
 Because this project is small, we can dispense with formality.
